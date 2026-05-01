@@ -83,11 +83,11 @@ jobs:
       # Invia il report XML a coveralls.io
       - name: Invia coverage a Coveralls
         uses: coverallsapp/github-action@v2
-          with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            coveralls-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
-            file: target/site/jacoco/jacoco.xml
-            format: jacoco
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coveralls-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          file: target/site/jacoco/jacoco.xml
+          format: jacoco
 
   # Esegue Checkstyle e PMD per verificare la qualità del codice
   package:
