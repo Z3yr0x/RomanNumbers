@@ -82,9 +82,7 @@ jobs:
 
       # Invia il report XML a coveralls.io
       - name: Invia coverage a Coveralls
-        run: mvn coveralls:report -B
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: mvn coveralls:report -B -DrepoToken=${{ secrets.COVERALLS_REPO_TOKEN }}
 
   # Esegue Checkstyle e PMD per verificare la qualità del codice
   package:
