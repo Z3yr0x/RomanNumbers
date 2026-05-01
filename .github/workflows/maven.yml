@@ -64,6 +64,8 @@ jobs:
     name: Code Coverage (Coveralls)
     runs-on: ubuntu-latest
     needs: test
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout del codice sorgente
@@ -88,6 +90,24 @@ jobs:
           coveralls-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
           file: target/site/jacoco/jacoco.xml
           format: jacoco
+
+      # Aggiorna il badge di Coveralls nel README con il branch corrente
+      - name: Aggiorna badge Coveralls nel README
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BRANCH="${{ github.head_ref }}"
+          else
+            BRANCH=${GITHUB_REF#refs/heads/}
+          fi
+          sed -i "s|badge.svg?branch=[^)]*|badge.svg?branch=${BRANCH}|g" README.md
+
+      - name: Commit README aggiornato
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --staged --quiet || git commit -m "chore: aggiorna badge coverage per branch ${GITHUB_REF#refs/heads/}"
+          git push
 
   # Esegue Checkstyle e PMD per verificare la qualità del codice
   package:
