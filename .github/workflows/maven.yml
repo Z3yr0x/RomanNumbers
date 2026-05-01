@@ -1,0 +1,134 @@
+# Trigger: ogni push e ogni Pull Request su qualsiasi branch
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+
+  # Compila il progetto e verifica che non ci siano errori
+  compile:
+    name: Compilazione del progetto
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del codice sorgente
+        uses: actions/checkout@v4
+
+      - name: Configura JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Compila il progetto, fallisce in caso di errori
+      - name: Compilazione con Maven
+        run: mvn compile -B
+
+
+  # Esegue tutti i test con JUnit 5
+  test:
+    name: Esecuzione dei test
+    runs-on: ubuntu-latest
+    needs: compile
+
+    steps:
+      - name: Checkout del codice sorgente
+        uses: actions/checkout@v4
+
+      - name: Configura JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Esegue i test con Maven (JUnit 5 via Surefire)
+      - name: Esecuzione test con Maven
+        run: mvn test -B
+
+      # Salva i report dei test anche in caso di fallimento
+      - name: Salva report dei test
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: target/surefire-reports/
+
+  # Calcola il code coverage con JaCoCo e lo invia a Coveralls
+  coverage:
+    name: Code Coverage (Coveralls)
+    runs-on: ubuntu-latest
+    needs: test
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout del codice sorgente
+        uses: actions/checkout@v4
+
+      - name: Configura JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      # verify esegue i test + JaCoCo genera il report XML
+      - name: Esegui test e genera report JaCoCo
+        run: mvn verify -B
+
+      # Invia il report XML a coveralls.io
+      - name: Invia coverage a Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coveralls-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          file: target/site/jacoco/jacoco.xml
+          format: jacoco
+
+      # Aggiorna il badge di Coveralls nel README con il branch corrente
+      - name: Aggiorna badge Coveralls nel README
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BRANCH="${{ github.head_ref }}"
+          else
+            BRANCH=${GITHUB_REF#refs/heads/}
+          fi
+          sed -i "s|badge.svg?branch=[^)]*|badge.svg?branch=${BRANCH}|g" README.md
+
+      - name: Commit README aggiornato
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --staged --quiet || git commit -m "chore: aggiorna badge coverage per branch ${GITHUB_REF#refs/heads/}"
+          git push
+
+  # Esegue Checkstyle e PMD per verificare la qualità del codice
+  package:
+    name: Analisi statica del codice
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout del codice sorgente
+        uses: actions/checkout@v4
+
+      - name: Configura JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Esegue Checkstyle: verifica stile e formattazione
+      - name: Analisi Checkstyle
+        run: mvn checkstyle:check -B
+
+      # Esegue PMD: rileva problemi strutturali e bad practices
+      - name: Analisi PMD
+        run: mvn pmd:check -B
