@@ -7,7 +7,7 @@ package it.unipd.mtss;
 public final class IntegerToRoman {
     private IntegerToRoman(){}
     public static String convert(int number){
-        if(number<1){
+        if(number<1||number>6){
             throw new IllegalArgumentException("Numero non valido: " + number);
         }
         StringBuilder result = new StringBuilder();
