@@ -99,7 +99,8 @@ jobs:
           else
             BRANCH=${GITHUB_REF#refs/heads/}
           fi
-          sed -i "s|badge.svg?branch=[^)]*|badge.svg?branch=${BRANCH}|g" README.md
+          NOCACHE=$(date +%s)
+          sed -i "s|badge.svg?branch=[^)]*|badge.svg?branch=${BRANCH}\&nocache=${NOCACHE}|g" README.md
 
       - name: Commit README aggiornato
         run: |
