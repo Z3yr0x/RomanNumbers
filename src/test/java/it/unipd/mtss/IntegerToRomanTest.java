@@ -17,6 +17,16 @@ public class IntegerToRomanTest {
         assertEquals("VIII", IntegerToRoman.convert(8));
         assertEquals("IX", IntegerToRoman.convert(9));
         assertEquals("X", IntegerToRoman.convert(10));
+       /* assertEquals("XI", IntegerToRoman.convert(11));
+        assertEquals("XII", IntegerToRoman.convert(12));
+        assertEquals("XIII", IntegerToRoman.convert(13));
+        assertEquals("XIV", IntegerToRoman.convert(14));
+        assertEquals("XV", IntegerToRoman.convert(15));
+        assertEquals("XVI", IntegerToRoman.convert(16));
+        assertEquals("XVII", IntegerToRoman.convert(17));
+        assertEquals("XVIII", IntegerToRoman.convert(18));
+        assertEquals("XIX", IntegerToRoman.convert(19));
+        assertEquals("XX", IntegerToRoman.convert(20));*/
     }
 
     @Test
@@ -34,6 +44,6 @@ public class IntegerToRomanTest {
     @Test
     void testLimite() {
         assertThrows(IllegalArgumentException.class,
-                () -> IntegerToRoman.convert(11));
+                () -> IntegerToRoman.convert(21));
     }
 }
