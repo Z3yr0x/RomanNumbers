@@ -7,12 +7,25 @@ package it.unipd.mtss;
 public final class IntegerToRoman {
     private IntegerToRoman(){}
     public static String convert(int number){
+        if(number<1){
+            throw new IllegalArgumentException("Numero non valido: " + number);
+        }
         StringBuilder result = new StringBuilder();
-        while (number>0&&number%5<=3)   {
-            number--;
+        if (number>3)
+        {
+            if(number==4)
+            {
+                result.append("IV");
+            }
+            else{
+                result.append("V");
+            }
+            number-=5;
+        }
+        for (int i=0; i<number;i++)
+        {
             result.append("I");
         }
         return String.valueOf(result);
     }
-
 }
