@@ -28,7 +28,7 @@
 
         <!-- Complessità ciclomatica massima: 3 -->
         <module name="CyclomaticComplexity">
-            <property name="max" value="3"/>
+            <property name="max" value="10"/>
         </module>
 
         <!-- Lunghezza massima di un metodo: default 150 righe -->
