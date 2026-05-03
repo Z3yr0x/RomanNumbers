@@ -7,10 +7,11 @@ package it.unipd.mtss;
 public final class IntegerToRoman {
     private IntegerToRoman(){}
     public static String convert(int number){
-        if(number<1||number>50){
+        if(number<1||number>100){
             throw new IllegalArgumentException("Numero non valido: " + number);
         }
         StringBuilder result = new StringBuilder();
+        number-=over90(number,result);
         if(number>=40){
             if (number>=50)
             {
@@ -48,5 +49,21 @@ public final class IntegerToRoman {
             result.append("I");
         }
         return String.valueOf(result);
+    }
+    public static int over90(int number, StringBuilder result)
+    {
+        if(number>=90)
+        {
+            if (number>=100)
+            {
+                result.append("C");
+                return 100;
+            }
+            else {
+                result.append("XC");
+                return 90;
+            }
+        }
+        return 0;
     }
 }
