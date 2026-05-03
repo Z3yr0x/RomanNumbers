@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegerToRomanTest {
 
-  /*  @Test
+    @Test
     void testIntegerToRoman() {
         int[] inputs = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,30,35,40,41,42,43,44,45,46,47,48,49,50,51,60,70,75,80,90,100,145,150,170,175,200,400,415,450,495,500,501, 504, 509, 510, 540, 549, 550, 590, 599,600, 700, 777, 800, 888, 900, 904, 944, 950,990, 994, 999, 1000};
         String[] previsti = {
@@ -22,7 +22,7 @@ public class IntegerToRomanTest {
             assertEquals(previsti[i], IntegerToRoman.convert(inputs[i]));
         }
     }
-*/
+
     @Test
     void testZero() {
         int input = 0;
@@ -42,7 +42,7 @@ public class IntegerToRomanTest {
 
     @Test
     void testLimite() {
-        int input = 501;
+        int input = 1001;
 
         assertThrows(IllegalArgumentException.class,
                 () -> IntegerToRoman.convert(input));
