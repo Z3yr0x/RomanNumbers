@@ -115,7 +115,6 @@ public class RomanPrinterTest {
                     "  >  <   | |       \\ \\ / /     | |   \n" +
                     " / /\\ \\  | |_ _     \\   /     _| |_  \n" +
                     "/_/  \\_\\ |_ _ _|     \\ /     |_____| \n";
-
             case 50: return
                     " _      \n" +
                     "| |     \n" +

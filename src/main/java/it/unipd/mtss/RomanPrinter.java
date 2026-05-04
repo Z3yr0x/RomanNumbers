@@ -38,12 +38,12 @@ public final class RomanPrinter {
                     "/_/  \\_\\"
             };
             case 'L': return new String[]{
-                    " _      ",
-                    "| |     ",
-                    "| |     ",
-                    "| |     ",
-                    "| |_ _  ",
-                    "|_ _ _| "
+                    " _     ",
+                    "| |    ",
+                    "| |    ",
+                    "| |    ",
+                    "| |_ _ ",
+                    "|_ _ _|"
             };
             default: throw new IllegalArgumentException("Carattere non valido: " + c);
         }
