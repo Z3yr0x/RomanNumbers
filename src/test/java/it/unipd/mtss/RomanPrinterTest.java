@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RomanPrinterTest {
-    /*
+
     private static String getExpected(int num) {
         switch (num) {
             case 1: return
@@ -102,12 +102,12 @@ public class RomanPrinterTest {
                             " / /\\ \\     \\   /     _| |_   _| |_   _| |_  \n" +
                             "/_/  \\_\\     \\ /     |_____| |_____| |_____| \n";
             case 20: return
-                    "--    --  --    -- \n" +
-                            "\\ \\  / /  \\ \\  / / \n" +
-                            " \\ \\/ /    \\ \\/ /  \n" +
-                            "  >  <      >  <   \n" +
-                            " / /\\ \\    / /\\ \\  \n" +
-                            "/_/  \\_\\  /_/  \\_\\ \n";
+                    "--    -- --    -- \n" +
+                            "\\ \\  / / \\ \\  / / \n" +
+                            " \\ \\/ /   \\ \\/ /  \n" +
+                            "  >  <     >  <   \n" +
+                            " / /\\ \\   / /\\ \\  \n" +
+                            "/_/  \\_\\ /_/  \\_\\ \n";
             case 46: return
                     "--    -- --       --  _____  \n" +
                             "\\ \\  / / \\ \\     / / |_   _| \n" +
@@ -134,5 +134,5 @@ public class RomanPrinterTest {
         for (int num : numeri) {
             assertEquals(getExpected(num), RomanPrinter.print(num));
         }
-    }*/
+    }
 }
