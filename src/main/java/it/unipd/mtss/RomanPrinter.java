@@ -29,6 +29,14 @@ public final class RomanPrinter {
                     "   \\   /   ",
                     "    \\ /    "
             };
+            case 'X': return new String[]{
+                    "--    --",
+                    "\\ \\  / /",
+                    " \\ \\/ / ",
+                    "  >  <  ",
+                    " / /\\ \\ ",
+                    "/_/  \\_\\"
+            };
             default: throw new IllegalArgumentException("Carattere non valido: " + c);
         }
     }

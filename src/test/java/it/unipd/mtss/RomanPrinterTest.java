@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RomanPrinterTest {
-/*
     private static String getExpected(int num) {
         switch (num) {
             case 1: return
@@ -100,8 +99,7 @@ public class RomanPrinterTest {
     void testStampaNumeri() {
         int[] numeri = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         for (int num : numeri) {
-            assertEquals(getExpected(num), RomanPrinter.print(num),
-                    "Fallito per il numero: " + num);
+            assertEquals(getExpected(num), RomanPrinter.print(num));
         }
-    }*/
+    }
 }
