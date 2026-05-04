@@ -4,25 +4,25 @@
 ////////////////////////////////////////////////////////////////////
 package it.unipd.mtss;
 
-import java.util.HashMap;
-import java.util.Map;
+public final class RomanPrinter {
 
-public class RomanPrinter {
-    /*
+    private RomanPrinter(){}
     public static String print(int num){
         return printAsciiArt(IntegerToRoman.convert(num));
-    }*/
+    }
 
-    private static final Map<Character, String[]> ASCII_ART = new HashMap<>();
-    static {
-        ASCII_ART.put('I', new String[]{
-                " _____ ",
-                "|_   _|",
-                "  | |  ",
-                "  | |  ",
-                " _| |_ ",
-                "|_____|"
-        });
+    private static String[] getAsciiArt(char c) {
+        switch (c) {
+            case 'I': return new String[]{
+                    " _____ ",
+                    "|_   _|",
+                    "  | |  ",
+                    "  | |  ",
+                    " _| |_ ",
+                    "|_____|"
+            };
+            default: throw new IllegalArgumentException("Carattere non valido: " + c);
+        }
     }
 
     private static String printAsciiArt(String romanNumber){
@@ -31,10 +31,7 @@ public class RomanPrinter {
         for(int i=0; i<6; i++) {
             for (int j = 0; j < romanNumber.length(); j++) {
                 char c = romanNumber.charAt(j);
-                if (!ASCII_ART.containsKey(c)) {
-                    throw new IllegalArgumentException("Carattere non valido: " + c);
-                }
-                risultato.append(ASCII_ART.get(c)[i]);
+                risultato.append(getAsciiArt(c)[i]);
                 risultato.append(" ");
             }
             risultato.append("\n");
