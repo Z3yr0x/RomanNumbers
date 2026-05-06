@@ -53,6 +53,14 @@ public final class RomanPrinter {
                     "| |_ _   ",
                     " \\_____| "
             };
+            case 'D': return new String[]{
+                    "  _____  ",
+                    " |  __ \\ ",
+                    " | |  | |",
+                    " | |  | |",
+                    " | |__| |",
+                    " |_____/ "
+            };
             default: throw new IllegalArgumentException("Carattere non valido: " + c);
         }
     }
