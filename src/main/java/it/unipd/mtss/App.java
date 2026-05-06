@@ -14,6 +14,7 @@ public final class App
     {
         Scanner scan = new Scanner(System.in);
         System.out.println(RomanPrinter.print(Integer.parseInt(scan.nextLine())));
+        scan.close();
     }
 
 }
